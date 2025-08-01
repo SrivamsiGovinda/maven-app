@@ -1,0 +1,11 @@
+tool > name : jdk23 
+    > name : maven3.9
+    > sonar-scanner
+
+update sonar in jenkins file for sonar section (http://localhost:9000)
+
+##
+Credentials : 
+    docker-cred
+
+update docker username in jenkins 
