@@ -21,8 +21,8 @@ pipeline {
         stage('sonarqube analysis') {
             steps {
                 sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=squ_3fac2f8020172e0ab4ff9d05202c69e3177397ec \
+                -Dsonar.host.url=http://3.1.50.143:9000 \
+                -Dsonar.login=squ_07148c314d675a309a5ef49814dd2c54c17eb56d \
                 -Dsonar.projectName=docker-desktop \
                 -Dsonar.java.binaries=. \
                 -Dsonar.projectKey=docker-desktop '''
@@ -42,9 +42,9 @@ pipeline {
         stage('docker build and push') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                    sh "docker build -t srivamsivamsi90/docker-desktop:latest ."
-                    sh "trivy image --exit-code 0 --format table -o trivy-report.txt srivamsivamsi90/docker-desktop:latest || true"
-                    sh "docker push srivamsivamsi90/docker-desktop:latest"
+                    sh "docker build -t srivamsigovind/docker-desktop:latest ."
+                    sh "trivy image --exit-code 0 --format table -o trivy-report.txt srivamsigovind/docker-desktop:latest || true"
+                    sh "docker push srivamsigovind/docker-desktop:latest"
                 }
             }
         }
@@ -52,14 +52,13 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                        sh "docker run -d --name docker-desktop -p 8081:8081 srivamsivamsi90/docker-desktop:latest"
+                        sh "docker run -d --name docker-desktop -p 8081:8081 srivamsigovind/docker-desktop:latest"
                     }
                 }
             }
         }
     }  
 }
-
 
 
 
