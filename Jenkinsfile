@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                        sh "docker run -d --name docker-desktop -p 8081:8081 srivamsigovind/docker-desktop:latest"
+                        sh "docker run -d --name docker-desktop -p 8081:8080 srivamsigovind/docker-desktop:latest"
                     }
                 }
             }
